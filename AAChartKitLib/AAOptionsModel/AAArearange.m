@@ -1,9 +1,9 @@
 //
-//  AAPlotBandsElement.h
-//  AAChartKitDemo
+//  AAArearange.m
+//  AAChartKit
 //
-//  Created by AnAn on 2018/12/23.
-//  Copyright © 2018 An An. All rights reserved.
+//  Created by AnAn on 2023/11/25.
+//  Copyright © 2023 An An. All rights reserved.
 //*************** ...... SOURCE CODE ...... ***************
 //***...................................................***
 //*** https://github.com/AAChartModel/AAChartKit        ***
@@ -30,32 +30,15 @@
  
  */
 
-//borderColor: null
-//borderWidth: 边框宽度
-//className: 类名
-//color: 样式
-//events: 事件
-//from: 开始值
-//id: 编号
-//innerRadius: null
-//label: {标签}
-//outerRadius: 100%
-//thickness: 10
-//to: 结束值
-//zIndex
+#import "AAArearange.h"
+#import "AAStates.h"
 
-#import <Foundation/Foundation.h>
-@class AALabel;
+@implementation AAArearange
 
-@interface AAPlotBandsElement : NSObject
-
-AAPropStatementAndPropSetFuncStatement(copy,   AAPlotBandsElement, NSString *, borderColor)
-AAPropStatementAndPropSetFuncStatement(strong, AAPlotBandsElement, NSNumber *, borderWidth)
-AAPropStatementAndPropSetFuncStatement(copy,   AAPlotBandsElement, NSString *, className)
-AAPropStatementAndPropSetFuncStatement(copy,   AAPlotBandsElement, NSString *, color)
-AAPropStatementAndPropSetFuncStatement(strong, AAPlotBandsElement, NSNumber *, from)
-AAPropStatementAndPropSetFuncStatement(strong, AAPlotBandsElement, AALabel  *, label)
-AAPropStatementAndPropSetFuncStatement(strong, AAPlotBandsElement, NSNumber *, to)
-AAPropStatementAndPropSetFuncStatement(assign, AAPlotBandsElement, NSUInteger , zIndex)
+AAPropSetFuncImplementation(AAArearange, NSNumber *, enableMouseTracking);
+AAPropSetFuncImplementation(AAArearange, AAStates *, states);
+AAPropSetFuncImplementation(AAArearange, NSString *, color);
+AAPropSetFuncImplementation(AAArearange, NSNumber *, fillOpacity);
+AAPropSetFuncImplementation(AAArearange, NSNumber *, lineWidth);
 
 @end

@@ -21,9 +21,10 @@
 
 - (id)chartConfigurationWithSelectedIndex:(NSUInteger)selectedIndex {
     switch (self.selectedIndex) {
-        case 0: return [self fanChart];//复杂自定义曲线填充图 1
+        case 0: return [self configureComplicatedCustomAreasplineChart];//复杂自定义曲线填充图 1
         case 1: return [self configureComplicatedCustomAreasplineChart2];//复杂自定义曲线填充图 2
         case 2: return [self configureComplicatedCustomAreasplineChart3];//复杂自定义曲线填充图 3
+        case 3: return [self fanChart];//折扇图
 
         default:
             break;
@@ -419,27 +420,28 @@
 }
 
 - (AAOptions *)fanChart {
-    AAOptions *aaOptions = AAOptions.new
+    return AAOptions.new
         .chartSet(AAChart.new
                   .typeSet(AAChartTypeArearange)
-//                  .zoomTypeSet(AAChartZoomTypeX)
-                  )
+                  .pinchTypeSet(AAChartZoomTypeX))
         .titleSet(AATitle.new.textSet(@"EU GDP"))
         .subtitleSet(AASubtitle.new
-//                   .textSet(@"<a href=\"https://economy-finance.ec.europa.eu/system/files/2023-05/SF_2023_Statistical%20Annex.pdf\" target=\"_blank\">European Economic Forecast, Spring 2023</a>")
-                     )
+                   .textSet(@"<a href=\"https://economy-finance.ec.europa.eu/system/files/2023-05/SF_2023_Statistical%20Annex.pdf\" target=\"_blank\">European Economic Forecast, Spring 2023</a>".aa_toPureJSString))
         .xAxisSet(AAXAxis.new
                   .typeSet(AAChartAxisTypeCategory)
-//                  .accessibilitySet(AAAccessibility.new.rangeDescriptionSet(@"Range: 2022 to 2024."))
                   .minSet(@1)
                   .maxSet(@12)
-                  .endOnTickSet(@NO)
+                  .endOnTickSet(false)
+                  .crosshairSet(AACrosshair.new
+                                .dashStyleSet(AAChartLineDashStyleTypeSolid)
+                                .colorSet(AAColor.lightGrayColor))
                   .plotBandsSet(@[
                        AAPlotBandsElement.new
                            .colorSet(@"rgba(255, 75, 66, 0.07)")
                            .fromSet(@5.5)
                            .toSet(@99)
-                           .labelSet(AALabel.new.textSet(@"Forecast"))
+                           .labelSet(AALabel.new
+                           .textSet(@"Forecast"))
                    ])
                    .plotLinesSet(@[
                        AAPlotLinesElement.new
@@ -447,34 +449,31 @@
                            .colorSet(AAColor.grayColor)
                            .widthSet(@2)
                            .valueSet(@5.5)
-                   ])
-                  )
+                   ]))
         .yAxisSet(AAYAxis.new
-                  .oppositeSet(@YES)
-//                  .titleSet(AAAxisTitle.new.textSet(@"GDP change<br/>on preceding year")
-//                            )
+                  .oppositeSet(true)
+                  .titleSet(AAAxisTitle.new
+                            .textSet(@"GDP change<br/>on preceding year"))
                   .labelsSet(AALabels.new.formatSet(@"{value}%"))
                   .maxSet(@30))
         .tooltipSet(AATooltip.new
-//                    .crosshairsSet(@YES)
-                    .sharedSet(@YES)
+                    .sharedSet(true)
                     .valueSuffixSet(@"%")
                     .valuePrefixSet(@"+"))
-//        .responsiveSet(AAResponsive.new
-//                       .rulesSet(@[@{@"chartOptions": @{ @"xAxis": @{@"labels": @{@"staggerLines": @2}} },
-//                                    @"condition": @{@"minWidth": @540}}]))
         .plotOptionsSet(AAPlotOptions.new
                         .seriesSet(AASeries.new
-                                   .markerSet(AAMarker.new.enabledSet(@NO)))
-//                        .arearangeSet(AAArearange.new
-//                                      .enableMouseTrackingSet(@NO)
-//                                      .statesSet(AAStates.new
-//                                                 .inactiveSet(AAInactive.new.enabledSet(@NO)))
-////                                      .colorSet(AAColor.redColor)
-//                                      .fillOpacitySet(@(1 / 3.0))
-//                                      .lineWidthSet(@0))
-                        )
-        .legendSet(AALegend.new.enabledSet(@NO))
+                                   .markerSet(AAMarker.new
+                                              .enabledSet(false)))
+                        .arearangeSet(AAArearange.new
+                                      .enableMouseTrackingSet(@NO)
+                                      .statesSet(AAStates.new
+                                                 .inactiveSet(AAInactive.new
+                                                              .enabledSet(true)))
+                                      .colorSet(AAColor.redColor)
+                                      .fillOpacitySet(@(1 / 3.0))
+                                      .lineWidthSet(@0)))
+        .legendSet(AALegend.new
+                   .enabledSet(false))
         .seriesSet(@[
             AASeriesElement.new
             .nameSet(@"EU GDP")
@@ -538,8 +537,6 @@
                 @[@"2025", @-10.3, @13.7]
             ])
         ]);
-
-    return aaOptions;
 }
 
 @end
