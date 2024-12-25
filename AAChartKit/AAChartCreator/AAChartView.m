@@ -837,7 +837,7 @@ WKScriptMessageHandler
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     NSString *jsonStr =[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSLog(@"----------- console log AAOptions JSON information of AAChartView -----------:\n%@",jsonStr);
+    // NSLog(@"----------- console log AAOptions JSON information of AAChartView -----------:\n%@",jsonStr);
     
     if (error) {
         NSLog(@"❌❌❌ pretty printed JSONString with JSONObject serialization failed：%@", error);
