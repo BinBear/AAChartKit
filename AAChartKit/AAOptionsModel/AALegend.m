@@ -44,7 +44,7 @@ AAPropSetFuncImplementation(AALegend, NSString    *, borderColor)
 AAPropSetFuncImplementation(AALegend, NSNumber    *, borderWidth) 
 AAPropSetFuncImplementation(AALegend, NSNumber    *, itemMarginTop)
 AAPropSetFuncImplementation(AALegend, NSNumber    *, itemMarginBottom)
-AAPropSetFuncImplementation(AALegend, AAItemStyle *, itemStyle)
+AAPropSetFuncImplementation(AALegend, AAStyle     *, itemStyle)
 AAPropSetFuncImplementation(AALegend, NSNumber    *, symbolHeight)//标志高度
 AAPropSetFuncImplementation(AALegend, NSNumber    *, symbolPadding)//标志后距
 AAPropSetFuncImplementation(AALegend, NSNumber    *, symbolRadius)//图标圆角
@@ -57,6 +57,9 @@ AAPropSetFuncImplementation(AALegend, NSString    *, labelFormat)//图例标签�
 @end
 
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 @implementation AAItemStyle
 
 AAPropSetFuncImplementation(AAItemStyle, NSString *, color)
@@ -65,3 +68,6 @@ AAPropSetFuncImplementation(AAItemStyle, NSString *, fontSize)
 AAPropSetFuncImplementation(AAItemStyle, NSString *, fontWeight)
 
 @end
+
+#pragma clang diagnostic pop
+

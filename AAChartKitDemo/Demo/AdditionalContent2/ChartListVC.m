@@ -49,7 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"AAInfographics";
+    self.title = @"Charts List";
     
     _chartTypeArr =
     @[
@@ -244,7 +244,7 @@
       [AAGradientColor purpleLakeColorWithDirection:AALinearGradientDirectionToTopLeft],
       ];
     
-    NSDictionary *gradientColor = gradientColorArr[index];
+    AAGradientColor *gradientColor = gradientColorArr[index];
     
     chartModel.colorsTheme = @[
         @"rgba(255,255,255,0.4)",
@@ -280,7 +280,7 @@
               .colorSet(AAColor.whiteColor));//X轴文字颜色
 
     aaOptions.legend
-    .itemStyleSet(AAItemStyle.new
+    .itemStyleSet(AAStyle.new
                   .colorSet(AAColor.whiteColor)//字体颜色
                   .fontSizeSet(@"13px")//字体大小
                   .fontWeightSet(AAChartFontWeightTypeThin)//字体为细体字

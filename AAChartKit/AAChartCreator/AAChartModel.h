@@ -33,6 +33,7 @@
 #import <Foundation/Foundation.h>
 #import "AASeriesElement.h"
 #import "AAPlotLinesElement.h"
+
 @class AAStyle, AALineStyle, AACrosshair, AAScrollablePlotArea;
 
 typedef NS_ENUM(NSInteger,AAChartAnimation) {
@@ -159,9 +160,9 @@ AAPropStatementAndPropSetFuncStatement(copy,   AAChartModel, NSString *, subtitl
 AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, AAStyle  *, subtitleStyle) //副标题文字样式
 AAPropStatementAndPropSetFuncStatement(copy,   AAChartModel, AAChartAlignType, subtitleAlign) //图表副标题文本水平对齐方式。可选的值有 “left”，”center“和“right”。 默认是：center.
 
-AAPropStatementAndPropSetFuncStatement(copy,   AAChartModel, NSString *, backgroundColor) //图表背景色(必须为十六进制的颜色色值如红色"#FF0000")
+AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSString *, backgroundColor) //图表背景色(必须为十六进制的颜色色值如红色"#FF0000")
 AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSArray  *, colorsTheme) //图表主题颜色数组
-AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSArray     <NSString *>*, categories) //X轴坐标每个点对应的名称(注意:这个不是用来设置 X 轴的值,仅仅是用于设置 X 轴文字内容的而已)
+AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSArray<NSString *>*, categories) //如果图表的 X 轴上有分类（categories），那么在这个轴上，会使用这些分类的名称来表示数据点，而不是使用数字
 AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSArray  *, series) //图表的数据列内容
 
 AAPropStatementAndPropSetFuncStatement(copy,   AAChartModel, AAChartType,            chartType) //图表类型
@@ -207,6 +208,7 @@ AAPropStatementAndPropSetFuncStatement(copy,   AAChartModel, NSString *, tooltip
 
 AAPropStatementAndPropSetFuncStatement(assign, AAChartModel, BOOL,       connectNulls) //设置折线是否断点重连(是否连接空值点)
 AAPropStatementAndPropSetFuncStatement(assign, AAChartModel, BOOL,       legendEnabled) //是否显示图例 lengend(图表底部可点按的圆点和文字)
+AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, AAStyle *,  legendItemStyle) //图例各项的文字样式
 AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSNumber *, borderRadius) //柱状图长条图头部圆角半径(可用于设置头部的形状,仅对条形图,柱状图有效)
 AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, NSNumber *, markerRadius) //折线连接点的半径长度
 AAPropStatementAndPropSetFuncStatement(strong, AAChartModel, AAScrollablePlotArea *, scrollablePlotArea)

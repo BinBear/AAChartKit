@@ -154,11 +154,6 @@
 
 //Stupid method
 - (AAOptions *)customAreaChartXAxisLabelsTextUnitSuffix1 {
-    NSDictionary *gradientColorDic1 =
-    [AAGradientColor gradientColorWithDirection:AALinearGradientDirectionToTop
-                               startColorString:@"#7052f4"//颜色字符串设置支持十六进制类型和 rgba 类型
-                                 endColorString:@"#00b0ff"];
-    
     AAChartModel *aaChartModel = AAChartModel.new
         .chartTypeSet(AAChartTypeArea)//图表类型
         .titleSet(@"Custom X Axis Labels Text")//图表主标题
@@ -169,7 +164,9 @@
             AASeriesElement.new
                 .lineWidthSet(@1.5)
                 .colorSet(@"#00b0ff")
-                .fillColorSet((id)gradientColorDic1)
+                .fillColorSet((id)[AAGradientColor gradientColorWithDirection:AALinearGradientDirectionToTop
+                                                             startColorString:@"#7052f4"//颜色字符串设置支持十六进制类型和 rgba 类型
+                                                               endColorString:@"#00b0ff"])
                 .nameSet(@"2018")
                 .dataSet(@[
                     @1.51, @6.7, @0.94, @1.44, @1.6, @1.63, @1.56, @1.91, @2.45, @3.87, @3.24, @4.90, @4.61, @4.10,
@@ -676,7 +673,7 @@
      "fontWeight": "bold"
      }
      */
-    AAItemStyle *aaItemStyle = AAItemStyle.new
+    AAStyle *aaItemStyle = AAStyle.new
     .colorSet(AAColor.grayColor)//字体颜色
     .cursorSet(@"pointer")//(在移动端这个属性没什么意义,其实不用设置)指定鼠标滑过数据列时鼠标的形状。当绑定了数据列点击事件时，可以将此参数设置为 "pointer"，用来提醒用户改数据列是可以点击的。
     .fontSizeSet(@"14px")//字体大小

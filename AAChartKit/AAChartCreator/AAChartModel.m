@@ -137,7 +137,7 @@ AAPropSetFuncImplementation(AAChartModel, AAChartAlignType, subtitleAlign) //图
 
 AAPropSetFuncImplementation(AAChartModel, NSString *, backgroundColor) //图表背景色(必须为十六进制的颜色色值如红色"#FF0000")
 AAPropSetFuncImplementation(AAChartModel, NSArray  *, colorsTheme) //图表主题颜色数组
-AAPropSetFuncImplementation(AAChartModel, NSArray     <NSString *>*, categories) //X轴坐标每个点对应的名称(注意:这个不是用来设置 X 轴的值,仅仅是用于设置 X 轴文字内容的而已)
+AAPropSetFuncImplementation(AAChartModel, NSArray<NSString *>*, categories) //如果图表的 X 轴上有分类（categories），那么在这个轴上，会使用这些分类的名称来表示数据点，而不是使用数字
 AAPropSetFuncImplementation(AAChartModel, NSArray  *, series) //图表的数据列内容
 
 AAPropSetFuncImplementation(AAChartModel, AAChartType,            chartType) //图表类型
@@ -183,6 +183,7 @@ AAPropSetFuncImplementation(AAChartModel, NSString *, tooltipValueSuffix) //浮�
 
 AAPropSetFuncImplementation(AAChartModel, BOOL,       connectNulls) //设置折线是否断点重连(是否连接空值点)
 AAPropSetFuncImplementation(AAChartModel, BOOL,       legendEnabled) //是否显示图例 lengend(图表底部可点按的圆点和文字)
+AAPropSetFuncImplementation(AAChartModel, AAStyle *,  legendItemStyle) //图例各项的文字样式
 AAPropSetFuncImplementation(AAChartModel, NSNumber *, borderRadius) //柱状图长条图头部圆角半径(可用于设置头部的形状,仅对条形图,柱状图有效)
 AAPropSetFuncImplementation(AAChartModel, NSNumber *, markerRadius) //折线连接点的半径长度
 AAPropSetFuncImplementation(AAChartModel, AAScrollablePlotArea *, scrollablePlotArea)

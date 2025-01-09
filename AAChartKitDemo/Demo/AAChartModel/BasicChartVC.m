@@ -104,7 +104,7 @@
 //        _aaChartView.delegate = self;//解开注释(同时需要注释掉 block 方法), 可以测试一下获取交互事件回调的 delegate 方法
     [self.view addSubview:_aaChartView];
     
-    if (@available(macCatalyst 16.4, *)) {
+    if (@available(iOS 16.4, macCatalyst 16.4, *)) {
         _aaChartView.inspectable = YES;
     } else {
         // Fallback on earlier versions
@@ -168,6 +168,7 @@
     .yAxisGridLineStyleSet([AALineStyle styleWithWidth:@0])//y轴横向分割线宽度为0(即是隐藏分割线)
     .xAxisLabelsStyleSet(AAStyleColor(AAColor.lightGrayColor))
     .yAxisLabelsStyleSet(AAStyleColor(AAColor.lightGrayColor))
+    .legendItemStyleSet(AAStyleColorSizeWeight(AAColor.lightGrayColor, 15, AAChartFontWeightTypeBold))
     .seriesSet(@[
         AASeriesElement.new
         .nameSet(@"2017")

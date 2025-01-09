@@ -94,11 +94,11 @@ WKScriptMessageHandler
     BOOL _clickEventEnabled;
     BOOL _mouseOverEventEnabled;
     BOOL _customEventEnabled;
+    NSString *_beforeDrawChartJavaScript;
+    NSString *_afterDrawChartJavaScript;
 }
 
 @property (nonatomic, strong) AAWeakProxy *weakProxy;
-@property (nonatomic, strong) NSString *beforeDrawChartJavaScript;
-@property (nonatomic, strong) NSString *afterDrawChartJavaScript;
 
 @end
 
@@ -157,14 +157,6 @@ WKScriptMessageHandler
 #pragma mark - Configure Chart View Content With AAOptions
 - (void)aa_drawChartWithOptions:(AAOptions *)options {
     if (!_optionJson) {
-        if (options.beforeDrawChartJavaScript) {
-            self.beforeDrawChartJavaScript = options.beforeDrawChartJavaScript;
-            options.beforeDrawChartJavaScript = nil;
-        }
-        if (options.afterDrawChartJavaScript) {
-            self.afterDrawChartJavaScript = options.afterDrawChartJavaScript;
-            options.afterDrawChartJavaScript = nil;
-        }
         [self configureTheOptionsJsonStringWithAAOptions:options];
         NSURLRequest *URLRequest = [self getJavaScriptFileURLRequest];
         [self loadRequest:URLRequest];
@@ -420,6 +412,15 @@ WKScriptMessageHandler
 }
 
 - (void)configureTheOptionsJsonStringWithAAOptions:(AAOptions *)aaOptions {
+    if (aaOptions.beforeDrawChartJavaScript) {
+        _beforeDrawChartJavaScript = aaOptions.beforeDrawChartJavaScript;
+        aaOptions.beforeDrawChartJavaScript = nil;
+    }
+    if (aaOptions.afterDrawChartJavaScript) {
+        _afterDrawChartJavaScript = aaOptions.afterDrawChartJavaScript;
+        aaOptions.afterDrawChartJavaScript = nil;
+    }
+    
     if (_isClearBackgroundColor) {
         aaOptions.chart.backgroundColor = AAColor.clearColor;
     }
@@ -511,35 +512,34 @@ WKScriptMessageHandler
 
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    if (self.beforeDrawChartJavaScript) {
-        [self safeEvaluateJavaScriptString:self.beforeDrawChartJavaScript];
-    }
-    
     [self drawChart];
+    
     if (self.didFinishLoadBlock) {
         self.didFinishLoadBlock(self);
-        if (self.afterDrawChartJavaScript) {
-            [self safeEvaluateJavaScriptString:self.afterDrawChartJavaScript];
-        }
         return;
     }
+    
     if (self.delegate) {
         if ([self.delegate respondsToSelector:@selector(aaChartViewDidFinishLoad:)]) {
             [self.delegate aaChartViewDidFinishLoad:self];
         }
     }
-    
-    if (self.afterDrawChartJavaScript) {
-        [self safeEvaluateJavaScriptString:self.afterDrawChartJavaScript];
-    }
 }
 
 - (void)drawChart {
+    if (_beforeDrawChartJavaScript) {
+        [self safeEvaluateJavaScriptString:_beforeDrawChartJavaScript];
+    }
+    
     NSString *jsStr = [NSString stringWithFormat:@"loadTheHighChartView('%@','%f','%f')",
                        _optionJson,
                        self.contentWidth,
                        self.contentHeight ];
     [self safeEvaluateJavaScriptString:jsStr];
+    
+    if (_afterDrawChartJavaScript) {
+        [self safeEvaluateJavaScriptString:_afterDrawChartJavaScript];
+    }
 }
 
 #pragma mark - WKScriptMessageHandler
@@ -717,16 +717,19 @@ WKScriptMessageHandler
 }
 
 - (void)addClickEventMessageHandler {
+    [self.configuration.userContentController removeScriptMessageHandlerForName:kUserContentMessageNameClick];
     [self.configuration.userContentController addScriptMessageHandler:(id<WKScriptMessageHandler>)self.weakProxy
                                                                  name:kUserContentMessageNameClick];
 }
 
 - (void)addMouseOverEventMessageHandler {
+    [self.configuration.userContentController removeScriptMessageHandlerForName:kUserContentMessageNameMouseOver];
     [self.configuration.userContentController addScriptMessageHandler:(id<WKScriptMessageHandler>)self.weakProxy
                                                                  name:kUserContentMessageNameMouseOver];
 }
 
 - (void)addCustomEventMessageHandler {
+    [self.configuration.userContentController removeScriptMessageHandlerForName:kUserContentMessageNameCustomEvent];
     [self.configuration.userContentController addScriptMessageHandler:(id<WKScriptMessageHandler>)self.weakProxy
                                                                  name:kUserContentMessageNameCustomEvent];
 }
@@ -742,7 +745,7 @@ WKScriptMessageHandler
 - (void)dealloc {
     [self.configuration.userContentController removeAllUserScripts];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    AADetailLog("👻👻👻 AAChartView was destroyed!!!");
+    AADetailLog("👻👻👻 AAChartView instance %p has been destroyed!", self);
 }
 
 @end

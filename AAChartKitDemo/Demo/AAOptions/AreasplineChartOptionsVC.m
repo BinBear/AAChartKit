@@ -80,7 +80,7 @@
     
     AALegend *aaLegend = AALegend.new
     .enabledSet(true)
-    .itemStyleSet(AAItemStyle.new
+    .itemStyleSet(AAStyle.new
                   .colorSet(AAColor.whiteColor))
     .alignSet(AAChartAlignTypeLeft)//设置图例位于水平方向上的右侧
     .layoutSet(AAChartLayoutTypeHorizontal)//设置图例排列方式为垂直排布
@@ -92,7 +92,7 @@
         @[@0.6, AARgbaColor(30, 144, 255, 0.2)],
         @[@1.0, AARgbaColor(30, 144, 255, 0.0)]
     ];
-    NSDictionary *gradientBlueColorDic =
+    AAGradientColor *gradientBlueColorDic =
     [AAGradientColor gradientColorWithDirection:AALinearGradientDirectionToBottom
                                      stopsArray:blueStopsArr];
     
@@ -102,7 +102,7 @@
         @[@0.6, AARgbaColor(255, 0, 0, 0.2)],
         @[@1.0, AARgbaColor(255, 0, 0, 0.0)]
     ];
-    NSDictionary *gradientRedColorDic =
+    AAGradientColor *gradientRedColorDic =
     [AAGradientColor gradientColorWithDirection:AALinearGradientDirectionToBottom
                                      stopsArray:redStopsArr];
     

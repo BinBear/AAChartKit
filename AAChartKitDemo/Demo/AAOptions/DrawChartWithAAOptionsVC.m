@@ -519,7 +519,7 @@
      "fontWeight": "bold"
      }
      */
-    AAItemStyle *aaItemStyle = AAItemStyle.new
+    AAStyle *aaItemStyle = AAStyle.new
     .colorSet(AAColor.redColor)//字体颜色
     .cursorSet(@"pointer")//(在移动端这个属性没什么意义,其实不用设置)指定鼠标滑过数据列时鼠标的形状。当绑定了数据列点击事件时，可以将此参数设置为 "pointer"，用来提醒用户改数据列是可以点击的。
     .fontSizeSet(@"20px")//字体大小
@@ -582,12 +582,12 @@
 
 // Refer to the issue https://github.com/AAChartModel/AAChartKit/issues/696
 - (AAOptions *)configure_DataLabels_XAXis_YAxis_Legend_Style {
-    NSDictionary *fillColorGradientColor =
+    AAGradientColor *fillColorGradientColor =
     [AAGradientColor gradientColorWithDirection:AALinearGradientDirectionToTop//渐变色方向向上🔼
                                startColorString:@"rgba(256,256,256,0.3)"//颜色字符串设置支持十六进制类型和 rgba 类型
                                  endColorString:@"rgba(256,256,256,1.0)"];
     
-    NSDictionary *backgroundColorGradientColor =
+    AAGradientColor *backgroundColorGradientColor =
     [AAGradientColor gradientColorWithDirection:AALinearGradientDirectionToTopLeft//渐变色方向向左上↖️
                                startColorString:@"#4F00BC"//颜色字符串设置支持十六进制类型和 rgba 类型
                                  endColorString:@"#29ABE2"];
@@ -653,7 +653,7 @@
      }
      */
     aaOptions.legend
-    .itemStyleSet(AAItemStyle.new
+    .itemStyleSet(AAStyle.new
                   .colorSet(AAColor.whiteColor)//字体颜色
                   .fontSizeSet(@"13px")//字体大小
                   .fontWeightSet(AAChartFontWeightTypeThin)//字体为细体字
@@ -717,7 +717,7 @@
     .verticalAlignSet(AAChartVerticalAlignTypeTop)
     .alignSet(AAChartAlignTypeRight)
     .layoutSet(AAChartLayoutTypeVertical)
-    .itemStyleSet(AAItemStyle.new
+    .itemStyleSet(AAStyle.new
                   .fontSizeSet(@"14px")
                   .fontWeightSet(AAChartFontWeightTypeThin)
                   .colorSet(AAColor.grayColor))
